@@ -6,7 +6,9 @@ Bienvenue sur le projet **Code Quality & Testing Evaluation**. Ce document défi
 
 ## 1. Stratégie de Branches
 
-La branche principale `main` est **protégée** : aucun push direct n'est autorisé. Tout changement doit faire l'objet d'une Pull Request (PR) validée.
+Le projet utilise une stratégie basée sur deux branches principales permanentes :
+* **`main`** : Branche de référence et de production (protégée, aucun push direct). C'est la branche finale évaluée.
+* **`develop`** : Branche d'intégration continue (aucun push direct). Elle regroupe les fonctionnalités validées avant livraison sur `main`.
 
 ### Nomenclature des branches
 
@@ -23,13 +25,16 @@ La branche principale `main` est **protégée** : aucun push direct n'est autori
     * `fix/frontend-login-redirect`
 * **Documentation** : `docs/<sujet>` (ou via `feature/` / `chore/` selon le contexte)
 
-### Règle d'or
-Chaque fonctionnalité ou correction doit avoir sa propre branche dédiée, créée à partir de `main` à jour :
+### Workflow de développement
+1. Créer sa branche dédiée à partir de `develop` à jour :
 ```bash
-git checkout main
-git pull origin main
+git checkout develop
+git pull origin develop
 git checkout -b feature/nom-de-ma-branche
 ```
+2. Travailler et commiter selon la convention Conventional Commits.
+3. Ouvrir une Pull Request ciblant `develop`.
+4. Après revue et merge dans `develop`, des PR périodiques de `develop` vers `main` assurent la mise à jour de la branche de production.
 
 ---
 
