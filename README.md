@@ -1,5 +1,5 @@
 # Code Quality & Testing Evaluation Project
-
+a
 ## Context
 You are working for a company that has recently acquired a small e-commerce project. The codebase is functional but lacks proper code quality standards, testing, and modern development practices. Your task is to improve the codebase by implementing various tools and best practices.
 
