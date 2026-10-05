@@ -1,11 +1,12 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+
+import Navigation from './components/Navigation';
+import AddProduct from './pages/AddProduct';
 import Login from './pages/Login';
+import ProductList from './pages/ProductList';
 import Register from './pages/Register';
 import UserList from './pages/UserList';
-import ProductList from './pages/ProductList';
-import AddProduct from './pages/AddProduct';
-import Navigation from './components/Navigation';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = React.useState(!!localStorage.getItem('token'));
@@ -29,11 +30,11 @@ function App() {
   }, []);
 
   const routes = [
-    { path: '/login', element: <Login /> },
-    { path: '/register', element: <Register /> },
-    { path: '/users', element: <UserList /> },
-    { path: '/products', element: <ProductList /> },
-    { path: '/add-product', element: <AddProduct /> }
+    { element: <Login />, path: '/login' },
+    { element: <Register />, path: '/register' },
+    { element: <UserList />, path: '/users' },
+    { element: <ProductList />, path: '/products' },
+    { element: <AddProduct />, path: '/add-product' }
   ];
 
   return (
@@ -41,20 +42,20 @@ function App() {
       <div
         className="app-container"
         style={{
-          padding: '20px',
-          backgroundColor: theme.secondary
+          backgroundColor: theme.secondary,
+          padding: '20px'
         }}
       >
         {isAuthenticated && <Navigation onLogout={refreshAuth} />}
         <Routes>
-          <Route path="/login" element={<Login onLogin={refreshAuth} />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/users" element={<UserList />} />
-          <Route path="/products" element={<ProductList />} />
-          <Route path="/add-product" element={<AddProduct />} />
+          <Route element={<Login onLogin={refreshAuth} />} path="/login" />
+          <Route element={<Register />} path="/register" />
+          <Route element={<UserList />} path="/users" />
+          <Route element={<ProductList />} path="/products" />
+          <Route element={<AddProduct />} path="/add-product" />
           <Route
+            element={isAuthenticated ? <Navigate replace to="/products" /> : <Navigate replace to="/login" />}
             path="/"
-            element={isAuthenticated ? <Navigate to="/products" replace /> : <Navigate to="/login" replace />}
           />
         </Routes>
       </div>

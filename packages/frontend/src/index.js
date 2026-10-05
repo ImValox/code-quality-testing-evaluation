@@ -1,8 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
 import _ from 'lodash';
 import moment from 'moment';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+import App from './App';
 import 'moment/locale/fr';
 import 'moment/locale/es';
 import 'moment/locale/de';
@@ -14,7 +15,7 @@ console.log('Lodash version:', _.VERSION);
 console.log('Moment loaded with locales:', moment.locales());
 
 window.onerror = function (message, source, lineno, colno, error) {
-  console.error('Global error:', { message, source, lineno, colno, error });
+  console.error('Global error:', { colno, error, lineno, message, source });
   return false;
 };
 

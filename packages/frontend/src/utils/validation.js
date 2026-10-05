@@ -13,8 +13,8 @@ export const validatePassword = (password) => {
   if (!/[0-9]/.test(password)) errors.push('Password must contain number');
 
   return {
-    isValid: errors.length === 0,
-    errors
+    errors,
+    isValid: errors.length === 0
   };
 };
 
@@ -36,8 +36,8 @@ export const validateUser = (user) => {
   }
 
   return {
-    isValid: Object.keys(errors).length === 0,
-    errors
+    errors,
+    isValid: Object.keys(errors).length === 0
   };
 };
 
@@ -70,5 +70,5 @@ export const validateProduct = (product) => {
     errors.stock.push('Stock cannot be negative');
   }
 
-  return { valid, errors };
+  return { errors, valid };
 };

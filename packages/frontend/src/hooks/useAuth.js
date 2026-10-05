@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const useAuth = () => {
@@ -33,5 +33,5 @@ export const useAuth = () => {
     navigate('/login');
   };
 
-  return { user, loading, login, logout };
+  return { loading, login, logout, user };
 };

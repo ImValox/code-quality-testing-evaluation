@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { createProduct } from '../services/api';
 
 const AddProduct = () => {
@@ -33,23 +34,23 @@ const AddProduct = () => {
   return (
     <div
       style={{
-        maxWidth: '400px',
-        margin: '0 auto',
-        padding: '20px',
+        borderRadius: '8px',
         boxShadow: '0 0 10px rgba(0,0,0,0.1)',
-        borderRadius: '8px'
+        margin: '0 auto',
+        maxWidth: '400px',
+        padding: '20px'
       }}
     >
-      <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Add New Product</h2>
+      <h2 style={{ marginBottom: '20px', textAlign: 'center' }}>Add New Product</h2>
 
       {error && (
         <div
           style={{
+            backgroundColor: '#ffebee',
+            borderRadius: '4px',
             color: 'red',
             marginBottom: '10px',
-            padding: '10px',
-            backgroundColor: '#ffebee',
-            borderRadius: '4px'
+            padding: '10px'
           }}
         >
           {error}
@@ -65,69 +66,69 @@ const AddProduct = () => {
         }}
       >
         <input
-          type="text"
-          placeholder="Product Name"
-          value={name}
           onChange={(e) => setName(e.target.value)}
+          placeholder="Product Name"
           style={{
-            padding: '8px',
+            border: '1px solid #ddd',
             borderRadius: '4px',
-            border: '1px solid #ddd'
+            padding: '8px'
           }}
+          type="text"
+          value={name}
         />
 
         <input
-          type="number"
-          placeholder="Price"
-          value={price}
           onChange={(e) => setPrice(e.target.value)}
+          placeholder="Price"
           style={{
-            padding: '8px',
+            border: '1px solid #ddd',
             borderRadius: '4px',
-            border: '1px solid #ddd'
+            padding: '8px'
           }}
+          type="number"
+          value={price}
         />
 
         <input
-          type="number"
-          placeholder="Stock"
-          value={stock}
           onChange={(e) => setStock(e.target.value)}
+          placeholder="Stock"
           style={{
-            padding: '8px',
+            border: '1px solid #ddd',
             borderRadius: '4px',
-            border: '1px solid #ddd'
+            padding: '8px'
           }}
+          type="number"
+          value={stock}
         />
 
         <div style={{ display: 'flex', gap: '10px' }}>
           <button
-            type="button"
             onClick={() => navigate('/products')}
             style={{
-              flex: 1,
-              padding: '10px',
               backgroundColor: '#f44336',
-              color: 'white',
               border: 'none',
               borderRadius: '4px',
-              cursor: 'pointer'
+              color: 'white',
+              cursor: 'pointer',
+              flex: 1,
+              padding: '10px'
             }}
+            type="button"
           >
             Cancel
           </button>
 
           <button
-            type="submit"
             style={{
-              flex: 1,
-              padding: '10px',
               backgroundColor: '#4CAF50',
-              color: 'white',
               border: 'none',
               borderRadius: '4px',
-              cursor: 'pointer'
+              color: 'white',
+              cursor: 'pointer',
+              flex: 1,
+              padding: '10px'
             }}
+            type="submit"
           >
             Add Product
           </button>
