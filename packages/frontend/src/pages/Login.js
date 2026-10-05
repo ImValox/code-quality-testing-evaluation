@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { loginUser } from '../services/api';
@@ -94,10 +95,14 @@ const Login = ({ onLogin }) => {
           textAlign: 'center'
         }}
       >
-        Don't have an account? <Link to="/register">Register</Link>
+        Don&apos;t have an account? <Link to="/register">Register</Link>
       </p>
     </div>
   );
+};
+
+Login.propTypes = {
+  onLogin: PropTypes.func.isRequired
 };
 
 export default Login;

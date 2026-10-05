@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { logout } from '../services/api';
@@ -83,6 +83,10 @@ const Navigation = ({ onLogout }) => {
       </div>
     </nav>
   );
+};
+
+Navigation.propTypes = {
+  onLogout: PropTypes.func.isRequired
 };
 
 export default Navigation;

@@ -29,14 +29,6 @@ function App() {
     setIsAuthenticated(!!localStorage.getItem('token'));
   }, []);
 
-  const routes = [
-    { element: <Login />, path: '/login' },
-    { element: <Register />, path: '/register' },
-    { element: <UserList />, path: '/users' },
-    { element: <ProductList />, path: '/products' },
-    { element: <AddProduct />, path: '/add-product' }
-  ];
-
   return (
     <BrowserRouter>
       <div
