@@ -5,6 +5,9 @@ You are working for a company that has recently acquired a small e-commerce proj
 
 ## Git Requirements (Mandatory)
 
+> [!IMPORTANT]
+> Pour plus de détails sur le workflow de développement, consultez le guide complet [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ### 1. Branch Strategy
 - Main branch is protected and cannot be pushed to directly
 - Must create the following branches:
