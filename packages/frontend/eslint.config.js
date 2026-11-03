@@ -61,7 +61,7 @@ module.exports = [
     }
   },
   {
-    files: ['eslint.config.js', 'postcss.config.js', 'tailwind.config.js'],
+    files: ['*.config.js', '__mocks__/**/*.js'],
     languageOptions: {
       globals: { ...globals.node },
       sourceType: 'commonjs'
