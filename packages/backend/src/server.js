@@ -24,10 +24,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   requestLog.push({
-    body: JSON.parse(JSON.stringify(req.body || {})),
-    headers: JSON.parse(JSON.stringify(req.headers)),
+    body: structuredClone(req.body || {}),
+    headers: structuredClone(req.headers),
     method: req.method,
-    query: JSON.parse(JSON.stringify(req.query || {})),
+    query: structuredClone(req.query || {}),
     timestamp: new Date(),
     url: req.url
   });
@@ -50,7 +50,7 @@ app.use((req, res, next) => {
 app.use('/api/auth', userRoutes);
 app.use('/api', productRoutes);
 
-app.use((err, req, res, next) => {
+app.use((err, req, res, _next) => {
   console.error(err.stack);
   res.status(500).send('Something broke!');
 });
@@ -87,10 +87,13 @@ const startServer = async () => {
 
     process.on('SIGTERM', () => {
       console.info('SIGTERM signal received.');
-      server.close(() => {
-        db.closeConnection()
-          .then(() => process.exit(0))
-          .catch(() => process.exit(1));
+      server.close(async () => {
+        try {
+          await db.closeConnection();
+          process.exit(0);
+        } catch {
+          process.exit(1);
+        }
       });
     });
   } catch (error) {

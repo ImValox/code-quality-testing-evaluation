@@ -54,26 +54,28 @@ const initDatabase = (db) => {
           return;
         }
 
-        if (result.count === 0) {
-          const bcrypt = require('bcryptjs');
-          const hashedPassword = bcrypt.hashSync('admin123', 8);
+        if (result.count !== 0) {
+          return;
+        }
 
-          db.run(
-            `
+        const bcrypt = require('bcryptjs');
+        const hashedPassword = bcrypt.hashSync('admin123', 8);
+
+        db.run(
+          `
             INSERT INTO users (firstname, lastname, username, password)
             VALUES (?, ?, ?, ?)
           `,
-            ['Admin', 'User', 'admin', hashedPassword],
-            (err) => {
-              if (!err) {
-                return;
-              }
-
-              console.error('Error creating admin user:', err);
-              reject(err);
+          ['Admin', 'User', 'admin', hashedPassword],
+          (err) => {
+            if (!err) {
+              return;
             }
-          );
-        }
+
+            console.error('Error creating admin user:', err);
+            reject(err);
+          }
+        );
       });
 
       db.get('SELECT COUNT(*) as count FROM products', [], (err, result) => {
@@ -83,18 +85,20 @@ const initDatabase = (db) => {
           return;
         }
 
-        if (result.count === 0) {
-          const sampleProducts = [
-            ['Laptop', 999.99, 10],
-            ['Smartphone', 499.99, 15],
-            ['Headphones', 79.99, 20]
-          ];
+        if (result.count !== 0) {
+          return;
+        }
 
-          for (const [name, price, stock] of sampleProducts) {
-            db.run('INSERT INTO products (name, price, stock) VALUES (?, ?, ?)', [name, price, stock], (err) => {
-              if (err) console.error('Error inserting product:', name, err);
-            });
-          }
+        const sampleProducts = [
+          ['Laptop', 999.99, 10],
+          ['Smartphone', 499.99, 15],
+          ['Headphones', 79.99, 20]
+        ];
+
+        for (const [name, price, stock] of sampleProducts) {
+          db.run('INSERT INTO products (name, price, stock) VALUES (?, ?, ?)', [name, price, stock], (err) => {
+            if (err) console.error('Error inserting product:', name, err);
+          });
         }
       });
 
