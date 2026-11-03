@@ -1,11 +1,26 @@
-export const validateEmail = (email) => {
+export interface ValidationResult {
+  errors: Record<string, string | string[]>;
+  isValid: boolean;
+}
+
+export interface PasswordValidationResult {
+  errors: string[];
+  isValid: boolean;
+}
+
+export interface ProductValidationResult {
+  errors: Record<string, string | string[]>;
+  valid: boolean;
+}
+
+export const validateEmail = (email: string): boolean => {
   const re =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 };
 
-export const validatePassword = (password) => {
-  let errors = [];
+export const validatePassword = (password: string): PasswordValidationResult => {
+  const errors: string[] = [];
 
   if (password.length < 8) errors.push('Password must be at least 8 characters');
   if (!/[A-Z]/.test(password)) errors.push('Password must contain uppercase');
@@ -18,8 +33,13 @@ export const validatePassword = (password) => {
   };
 };
 
-export const validateUser = (user) => {
-  const errors = {};
+export const validateUser = (user: {
+  firstname?: string;
+  lastname?: string;
+  password?: string;
+  username?: string;
+}): ValidationResult => {
+  const errors: Record<string, string | string[]> = {};
 
   if (!user.firstname) errors.firstname = 'First name is required';
   if (!user.lastname) errors.lastname = 'Last name is required';
@@ -41,33 +61,39 @@ export const validateUser = (user) => {
   };
 };
 
-export const validateProduct = (product) => {
+export const validateProduct = (product: {
+  name?: string;
+  price?: number;
+  stock?: number;
+}): ProductValidationResult => {
   let valid = true;
-  let errors = {};
+  const errors: Record<string, string | string[]> = {};
 
   if (!product.name || product.name.trim() === '') {
     valid = false;
     errors.name = 'Name is required';
   }
 
-  if (!product.price || isNaN(product.price)) {
+  if (product.price === undefined || product.price === null || Number.isNaN(product.price)) {
     valid = false;
     errors.price = 'Valid price is required';
   }
 
-  if (product.price < 0) {
+  if (product.price !== undefined && product.price < 0) {
     valid = false;
     errors.price = 'Price must be positive';
   }
 
-  if (!product.stock || isNaN(product.stock)) {
+  if (product.stock === undefined || product.stock === null || Number.isNaN(product.stock)) {
     valid = false;
     errors.stock = ['Stock must be a number'];
   }
 
-  if (product.stock < 0) {
+  if (product.stock !== undefined && product.stock < 0) {
     if (!errors.stock) errors.stock = [];
-    errors.stock.push('Stock cannot be negative');
+    if (Array.isArray(errors.stock)) {
+      errors.stock.push('Stock cannot be negative');
+    }
   }
 
   return { errors, valid };

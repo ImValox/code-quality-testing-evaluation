@@ -16,16 +16,20 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lighthouse": "lhci autorun",
-    "prepare": "husky"
+    "prepare": "husky",
+    "typecheck": "tsc -b"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
     "@lhci/cli": "^0.16.0",
+    "@types/node": "^22.20.5",
     "concurrently": "^8.2.2",
     "husky": "^9.1.7",
     "jest": "^30.5.2",
     "lint-staged": "^17.6.0",
-    "prettier": "^3.5.0"
+    "prettier": "^3.5.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.72.1"
   }
 }
