@@ -1,9 +1,10 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
 const db = require('../db/database');
 
 exports.registerUser = (req, res) => {
-  const { username, password, firstname, lastname } = req.body;
+  const { firstname, lastname, password, username } = req.body;
 
   const hashedPassword = bcrypt.hashSync(password, 8);
 
@@ -19,7 +20,7 @@ exports.registerUser = (req, res) => {
       }
 
       const token = jwt.sign({ id: this.lastID }, 'your-super-secret-key-that-should-not-be-hardcoded', {
-        expiresIn: 86400
+        expiresIn: 86_400
       });
 
       res.status(201).json({ auth: true, token });
@@ -28,7 +29,7 @@ exports.registerUser = (req, res) => {
 };
 
 exports.loginUser = (req, res) => {
-  const { username, password } = req.body;
+  const { password, username } = req.body;
 
   const database = db.getDb();
 
@@ -39,16 +40,18 @@ exports.loginUser = (req, res) => {
     const passwordIsValid = bcrypt.compareSync(password, user.password);
     if (!passwordIsValid) return res.status(401).json({ auth: false, token: null });
 
-    const token = jwt.sign({ id: user.id }, 'your-super-secret-key-that-should-not-be-hardcoded', { expiresIn: 86400 });
+    const token = jwt.sign({ id: user.id }, 'your-super-secret-key-that-should-not-be-hardcoded', {
+      expiresIn: 86_400
+    });
 
     res.status(200).json({
       auth: true,
       token,
       user: {
-        id: user.id,
-        username: user.username,
         firstname: user.firstname,
-        lastname: user.lastname
+        id: user.id,
+        lastname: user.lastname,
+        username: user.username
       }
     });
   });
@@ -89,17 +92,16 @@ exports.findSimilarUsernames = (req, res) => {
 
         for (let x = 1; x <= username1.length; x++) {
           for (let y = 1; y <= username2.length; y++) {
-            if (username1.charAt(x - 1) === username2.charAt(y - 1)) {
-              matrix[x][y] = matrix[x - 1][y - 1];
-            } else {
-              matrix[x][y] = Math.min(matrix[x - 1][y - 1] + 1, matrix[x][y - 1] + 1, matrix[x - 1][y] + 1);
-            }
+            matrix[x][y] =
+              username1.charAt(x - 1) === username2.charAt(y - 1)
+                ? matrix[x - 1][y - 1]
+                : Math.min(matrix[x - 1][y - 1] + 1, matrix[x][y - 1] + 1, matrix[x - 1][y] + 1);
           }
         }
 
         const distance = matrix[username1.length][username2.length];
         if (distance <= 2) {
-          similar.push({ user1: users[i].username, user2: users[j].username, distance });
+          similar.push({ distance, user1: users[i].username, user2: users[j].username });
         }
       }
     }

@@ -15,10 +15,12 @@ const initDatabase = (db) => {
         )
       `,
         (err) => {
-          if (err) {
-            console.error('Error creating users table:', err);
-            reject(err);
+          if (!err) {
+            return;
           }
+
+          console.error('Error creating users table:', err);
+          reject(err);
         }
       );
 
@@ -35,10 +37,12 @@ const initDatabase = (db) => {
         )
       `,
         (err) => {
-          if (err) {
-            console.error('Error creating products table:', err);
-            reject(err);
+          if (!err) {
+            return;
           }
+
+          console.error('Error creating products table:', err);
+          reject(err);
         }
       );
 
@@ -61,10 +65,12 @@ const initDatabase = (db) => {
           `,
             ['Admin', 'User', 'admin', hashedPassword],
             (err) => {
-              if (err) {
-                console.error('Error creating admin user:', err);
-                reject(err);
+              if (!err) {
+                return;
               }
+
+              console.error('Error creating admin user:', err);
+              reject(err);
             }
           );
         }
@@ -84,11 +90,11 @@ const initDatabase = (db) => {
             ['Headphones', 79.99, 20]
           ];
 
-          sampleProducts.forEach(([name, price, stock]) => {
+          for (const [name, price, stock] of sampleProducts) {
             db.run('INSERT INTO products (name, price, stock) VALUES (?, ?, ?)', [name, price, stock], (err) => {
               if (err) console.error('Error inserting product:', name, err);
             });
-          });
+          }
         }
       });
 
