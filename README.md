@@ -1,10 +1,67 @@
 # Code Quality & Testing Evaluation Project
 
-a
-
 ## Context
 
 You are working for a company that has recently acquired a small e-commerce project. The codebase is functional but lacks proper code quality standards, testing, and modern development practices. Your task is to improve the codebase by implementing various tools and best practices.
+
+## Qualité de code (Outils & Configuration)
+
+Le projet intègre un ensemble d'outils garantissant une qualité de code irréprochable, une lisibilité uniforme et l'absence de conflits entre formateur et linter.
+
+### 1. Prettier (Formatage de code)
+
+Prettier est configuré à la racine via le fichier `.prettierrc` avec les règles suivantes :
+
+- **Guillemets simples** : `'singleQuote': true`
+- **Pas de virgules finales** : `'trailingComma': 'none'`
+- **Indentation** : 2 espaces (`'tabWidth': 2`, `'useTabs': false`)
+- **Longueur maximale des lignes** : 120 caractères (`'printWidth': 120`)
+
+Le fichier `.prettierignore` exclut automatiquement les dossiers générés et volumineux (`node_modules`, `build`, `coverage`, `.git`).
+
+### 2. ESLint (Analyse statique)
+
+Le projet utilise le nouveau format **ESLint Flat Config** (`eslint.config.js`) adapté aux spécificités de chaque workspace :
+
+#### Frontend (`packages/frontend/eslint.config.js`)
+
+- **`@eslint/js`** : Règles de base recommandées JavaScript.
+- **`eslint-plugin-react`** : Détection des erreurs spécifiques aux composants et JSX React.
+- **`eslint-plugin-react-hooks`** : Respect strict du cycle de vie des Hooks React (`rules-of-hooks`, `exhaustive-deps`).
+- **`eslint-plugin-jsx-a11y`** : Vérification des standards d'accessibilité web (ARIA, attributs `alt`, contrastes).
+- **`eslint-plugin-perfectionist`** : Tri naturel et cohérent des imports, objets et props JSX pour éviter les diffs inutiles en revue de code.
+- **`eslint-plugin-tailwindcss`** : Tri et validation des classes utilitaires Tailwind CSS (`tailwindcss/classnames-order`).
+
+#### Backend (`packages/backend/eslint.config.js`)
+
+- **`@eslint/js`** : Règles JavaScript recommandées.
+- **`eslint-plugin-n`** : Règles idiomatiques pour environnements Node.js (gestion des modules, imports et conventions Node).
+- **`eslint-plugin-unicorn`** : Bonnes pratiques modernes en JavaScript (règles adaptées pour CommonJS / Express).
+- **`eslint-plugin-perfectionist`** : Tri et organisation propre des objets et dépendances.
+
+### 3. Cohabitation ESLint + Prettier
+
+Pour éliminer tout conflit entre ESLint et Prettier :
+
+- Le package **`eslint-config-prettier`** est inclus en **dernière position** dans les configurations ESLint frontend et backend.
+- Il désactive automatiquement toutes les règles ESLint purement cosmétiques qui pourraient entrer en conflit avec Prettier.
+- La séparation des responsabilités est totale : **Prettier formate**, **ESLint vérifie la logique et la qualité**.
+
+### 4. Commandes npm
+
+| Commande               | Description                                                |
+| :--------------------- | :--------------------------------------------------------- |
+| `npm run lint`         | Lance ESLint sur tous les workspaces                       |
+| `npm run lint:fix`     | Corrige automatiquement les erreurs ESLint réparables      |
+| `npm run format`       | Applique le formatage Prettier sur l'ensemble du dépôt     |
+| `npm run format:check` | Vérifie que tous les fichiers respectent le style Prettier |
+
+### 5. Configuration VS Code
+
+Pour une expérience de développement fluide, le dossier `.vscode/` contient :
+
+- **`.vscode/extensions.json`** : Suggestions d'extensions (ESLint, Prettier, Tailwind CSS IntelliSense).
+- **`.vscode/settings.json`** : Formatage automatique à la sauvegarde (`editor.formatOnSave: true`), définition de Prettier en formateur par défaut, et correction automatique ESLint (`source.fixAll.eslint: explicit`).
 
 ## Git Requirements (Mandatory)
 
