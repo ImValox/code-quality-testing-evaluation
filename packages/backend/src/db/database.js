@@ -1,19 +1,20 @@
 const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
+const path = require('node:path');
+
 const initDatabase = require('./migrations/init');
 
-let db = null;
+const state = { db: null };
 
 const DB_PATH = path.join(__dirname, '..', 'database.sqlite');
 
 const connect = async () => {
-  if (db) {
-    return db;
+  if (state.db) {
+    return state.db;
   }
 
   return new Promise((resolve, reject) => {
     try {
-      const fs = require('fs');
+      const fs = require('node:fs');
 
       if (fs.existsSync(DB_PATH)) {
         const stats = fs.statSync(DB_PATH);
@@ -23,7 +24,7 @@ const connect = async () => {
         console.log('Files in db directory:', files.length);
       }
 
-      db = new sqlite3.Database(DB_PATH, async (err) => {
+      state.db = new sqlite3.Database(DB_PATH, async (err) => {
         if (err) {
           console.error('Error connecting to database:', err);
           reject(err);
@@ -33,50 +34,50 @@ const connect = async () => {
         console.log('Connected to SQLite database');
 
         try {
-          await initDatabase(db);
+          await initDatabase(state.db);
           console.log('Database initialized');
-          resolve(db);
-        } catch (initErr) {
-          console.error('Error initializing database:', initErr);
-          reject(initErr);
+          resolve(state.db);
+        } catch (error) {
+          console.error('Error initializing database:', error);
+          reject(error);
         }
       });
-    } catch (err) {
-      console.error('Failed to create database connection:', err);
-      reject(err);
+    } catch (error) {
+      console.error('Failed to create database connection:', error);
+      reject(error);
     }
   });
 };
 
 // Get database instance - throws error if not connected
 const getDb = () => {
-  if (!db) {
+  if (!state.db) {
     throw new Error('Database not connected. Call connect() first.');
   }
-  return db;
+  return state.db;
 };
 
 const closeConnection = () => {
   return new Promise((resolve, reject) => {
-    if (!db) {
+    if (!state.db) {
       resolve();
       return;
     }
 
-    db.close((err) => {
+    state.db.close((err) => {
       if (err) {
         console.error('Error closing database:', err);
         reject(err);
         return;
       }
-      db = null;
+      state.db = null;
       resolve();
     });
   });
 };
 
 module.exports = {
+  closeConnection,
   connect,
-  getDb,
-  closeConnection
+  getDb
 };

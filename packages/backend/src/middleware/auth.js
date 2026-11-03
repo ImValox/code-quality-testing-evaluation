@@ -8,12 +8,12 @@ const auth = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token.split(' ')[1], 'your-super-secret-key-that-should-not-be-hardcoded');
+    const decoded = jwt.verify(token.split(' ', 2)[1], 'your-super-secret-key-that-should-not-be-hardcoded');
 
     req.user = decoded;
     next();
-  } catch (e) {
-    console.error('Auth error:', e);
+  } catch (error) {
+    console.error('Auth error:', error);
     res.status(401).json({ error: 'Failed to authenticate token' });
   }
 };
