@@ -1,8 +1,8 @@
 const js = require('@eslint/js');
-const globals = require('globals');
 const nodePlugin = require('eslint-plugin-n');
-const unicorn = require('eslint-plugin-unicorn').default;
 const perfectionist = require('eslint-plugin-perfectionist');
+const unicorn = require('eslint-plugin-unicorn').default;
+const globals = require('globals');
 
 module.exports = [
   js.configs.recommended,
@@ -12,20 +12,38 @@ module.exports = [
   {
     files: ['**/*.js'],
     languageOptions: {
-      sourceType: 'commonjs',
-      globals: globals.node
+      globals: globals.node,
+      sourceType: 'commonjs'
     },
     rules: {
       'n/no-missing-import': 'error',
       'n/no-unpublished-require': 'error',
+      // Express identifie un error handler par ses 4 paramètres
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       // Le projet utilise des noms en camelCase (userController.js...)
       'unicorn/filename-case': 'off',
-      // Le backend est en CommonJS (require), pas en modules ES
-      'unicorn/prefer-module': 'off',
       // "req", "res", "err" sont des noms courants avec Express
-      'unicorn/prevent-abbreviations': 'off',
+      'unicorn/name-replacements': 'off',
       // sqlite3 renvoie null, on ne peut pas l'éviter
-      'unicorn/no-null': 'off'
+      'unicorn/no-null': 'off',
+      // sqlite3 expose lastID via this dans ses callbacks
+      'unicorn/no-this-outside-of-class': 'off',
+      // Le backend est en CommonJS (require), pas en modules ES
+      'unicorn/prefer-module': 'off'
+    }
+  },
+  {
+    files: ['src/server.js'],
+    rules: {
+      'n/no-process-exit': 'off',
+      'unicorn/no-process-exit': 'off',
+      'unicorn/prefer-top-level-await': 'off'
+    }
+  },
+  {
+    files: ['eslint.config.js'],
+    rules: {
+      'n/no-unpublished-require': 'off'
     }
   }
 ];
