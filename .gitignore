@@ -7,3 +7,5 @@ coverage/
 .env
 .env.local
 TASKS_ROADMAP.md
+node_modules.nosync
+*.nosync
