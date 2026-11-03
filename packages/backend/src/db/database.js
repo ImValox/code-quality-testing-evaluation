@@ -5,7 +5,7 @@ const initDatabase = require('./migrations/init');
 
 const state = { db: null };
 
-const DB_PATH = path.join(__dirname, '..', 'database.sqlite');
+const DB_PATH = process.env.DB_PATH || path.join(__dirname, '..', 'database.sqlite');
 
 const connect = async () => {
   if (state.db) {

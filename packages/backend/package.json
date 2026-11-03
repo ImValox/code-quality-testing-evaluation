@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "test": "echo \"No tests specified\" && exit 0",
+    "test": "jest",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -21,11 +21,14 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "dotenv": "^18.0.9",
     "eslint": "^10.12.0",
     "eslint-plugin-n": "^18.4.1",
     "eslint-plugin-perfectionist": "^5.12.1",
     "eslint-plugin-unicorn": "^77.0.0",
     "globals": "^17.13.0",
-    "nodemon": "^3.1.10"
+    "jest": "^30.5.2",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.3.1"
   }
 }
