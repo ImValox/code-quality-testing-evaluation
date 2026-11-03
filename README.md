@@ -63,6 +63,50 @@ Pour une expérience de développement fluide, le dossier `.vscode/` contient :
 - **`.vscode/extensions.json`** : Suggestions d'extensions (ESLint, Prettier, Tailwind CSS IntelliSense).
 - **`.vscode/settings.json`** : Formatage automatique à la sauvegarde (`editor.formatOnSave: true`), définition de Prettier en formateur par défaut, et correction automatique ESLint (`source.fixAll.eslint: explicit`).
 
+## Stratégie de tests
+
+Le projet met en œuvre une politique de tests rigoureuse, combinant tests unitaires, tests de composants et tests d'intégration d'API.
+
+### 1. Exécution des tests
+
+| Commande                                  | Description                                                               |
+| :---------------------------------------- | :------------------------------------------------------------------------ |
+| `npm test`                                | Exécute l'ensemble des suites de tests sur le frontend et le backend      |
+| `npm run test:coverage`                   | Génère les rapports de couverture et vérifie le respect strict des seuils |
+| `npm run test:watch --workspace=frontend` | Lance Jest en mode interactif sur le workspace frontend                   |
+
+### 2. Organisation des dossiers
+
+- **Frontend (`packages/frontend`)** :
+  - Tests unitaires et de composants colocalisés dans `src/` avec l'extension `.test.jsx` (ex : `src/components/Navigation.test.jsx`, `src/pages/Login.test.jsx`).
+  - Mocks d'API centralisés dans `src/test/mocks/` (`handlers.js`, `server.js`, `fixtures.js`).
+  - Configuration globale de l'environnement de test dans `src/setupTests.js`.
+- **Backend (`packages/backend`)** :
+  - Tests API et d'intégration regroupés dans `packages/backend/tests/` (ex : `tests/health.test.js`).
+  - Scripts d'initialisation et configuration de base de données de test dans `packages/backend/tests/setup/`.
+
+### 3. Mocks & Isolation
+
+- **Frontend** : Utilisation de **Mock Service Worker (MSW)** (`setupServer`) pour intercepter les requêtes HTTP d'Axios au niveau réseau. Cela permet de simuler fidèlement les réponses de l'API sans lancer le backend. Les fichiers statiques et images sont simulés par `fileMock.js` et les feuilles de style par `identity-obj-proxy`.
+- **Backend** : Utilisation de `supertest` pour tester les endpoints Express directement. La base de données de test tourne sur SQLite avec réinitialisation et injection de données de test dédiées (`.env.test`).
+
+### 4. Seuils de couverture globaux
+
+Les seuils minimaux suivants sont obligatoires dans les configurations Jest de chaque workspace :
+
+- **Statements** : 80%
+- **Branches** : 60%
+- **Functions** : 70%
+- **Lines** : 80%
+
+Les rapports de couverture sont exportés en formats `text` (terminal), `lcov` et `html` (accessible dans le dossier `coverage/lcov-report/index.html`).
+
+### 5. Bonnes pratiques de test
+
+- Privilégier le test du comportement utilisateur visible plutôt que les détails d'implémentation internes (`@testing-library/react`).
+- Tester systématiquement les cas limites (champs vides, erreurs 400/401/404, gestion des exceptions).
+- Garantir l'idempotence des tests en réinitialisant les mocks (`clearMocks: true`) et les handlers MSW après chaque test (`server.resetHandlers()`).
+
 ## Git Requirements (Mandatory)
 
 > [!IMPORTANT]

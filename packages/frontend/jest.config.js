@@ -2,6 +2,15 @@
 module.exports = {
   clearMocks: true,
   collectCoverageFrom: ['src/**/*.{js,jsx}', '!src/index.js', '!src/setupTests.js', '!src/test/**'],
+  coverageReporters: ['text', 'lcov', 'html'],
+  coverageThreshold: {
+    global: {
+      branches: 60,
+      functions: 70,
+      lines: 80,
+      statements: 80
+    }
+  },
   moduleNameMapper: {
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
     '\\.(gif|ico|jpe?g|png|svg|webp)$': '<rootDir>/__mocks__/fileMock.js'
