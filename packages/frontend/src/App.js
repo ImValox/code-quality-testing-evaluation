@@ -32,7 +32,6 @@ function App() {
   return (
     <BrowserRouter>
       <div
-        className="app-container"
         style={{
           backgroundColor: theme.secondary,
           padding: '20px'

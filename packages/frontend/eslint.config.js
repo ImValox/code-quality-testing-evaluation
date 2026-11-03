@@ -1,9 +1,11 @@
 const js = require('@eslint/js');
+const tailwind = require('eslint-plugin-tailwindcss');
 const jsxA11y = require('eslint-plugin-jsx-a11y');
 const perfectionist = require('eslint-plugin-perfectionist');
 const react = require('eslint-plugin-react');
 const reactHooks = require('eslint-plugin-react-hooks');
 const globals = require('globals');
+const path = require('node:path');
 
 module.exports = [
   {
@@ -11,13 +13,17 @@ module.exports = [
   },
   {
     settings: {
-      react: { version: 'detect' }
+      react: { version: 'detect' },
+      tailwindcss: {
+        config: path.join(__dirname, 'tailwind.config.js')
+      }
     }
   },
   js.configs.recommended,
   react.configs.flat.recommended,
   react.configs.flat['jsx-runtime'],
   jsxA11y.flatConfigs.recommended,
+  ...tailwind.configs['flat/recommended'],
   {
     files: ['src/**/*.{js,jsx}'],
     languageOptions: {
@@ -42,7 +48,10 @@ module.exports = [
       'perfectionist/sort-named-imports': ['error', { type: 'natural' }],
       'perfectionist/sort-objects': ['error', { type: 'natural' }],
       'react-hooks/exhaustive-deps': 'warn',
-      'react-hooks/rules-of-hooks': 'error'
+      'react-hooks/rules-of-hooks': 'error',
+      'tailwindcss/classnames-order': 'error',
+      'tailwindcss/no-contradicting-classname': 'error',
+      'tailwindcss/no-custom-classname': 'error'
     }
   },
   {
