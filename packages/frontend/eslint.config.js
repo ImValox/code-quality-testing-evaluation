@@ -7,6 +7,7 @@ const reactHooks = require('eslint-plugin-react-hooks');
 const globals = require('globals');
 const path = require('node:path');
 const prettier = require('eslint-config-prettier');
+const tseslint = require('typescript-eslint');
 
 module.exports = [
   {
@@ -25,8 +26,29 @@ module.exports = [
   react.configs.flat['jsx-runtime'],
   jsxA11y.flatConfigs.recommended,
   ...tailwind.configs['flat/recommended'],
+  ...tseslint.configs.recommendedTypeChecked.map((config) => ({
+    ...config,
+    files: ['**/*.ts', '**/*.tsx']
+  })),
   {
-    files: ['src/**/*.{js,jsx}', '**/src/**/*.{js,jsx}'],
+    files: ['**/*.js', '**/*.jsx'],
+    ...tseslint.configs.disableTypeChecked
+  },
+  {
+    files: ['**/*.ts', '**/*.tsx'],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        project: ['./tsconfig.json'],
+        tsconfigRootDir: __dirname
+      }
+    },
+    plugins: {
+      '@typescript-eslint': tseslint.plugin
+    }
+  },
+  {
+    files: ['src/**/*.{js,jsx,ts,tsx}', '**/src/**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
       ecmaVersion: 'latest',
       globals: {
@@ -56,7 +78,12 @@ module.exports = [
     }
   },
   {
-    files: ['src/**/*.test.{js,jsx}', 'src/setupTests.js', '**/src/**/*.test.{js,jsx}', '**/setupTests.js'],
+    files: [
+      'src/**/*.test.{js,jsx,ts,tsx}',
+      'src/setupTests.js',
+      '**/src/**/*.test.{js,jsx,ts,tsx}',
+      '**/setupTests.js'
+    ],
     languageOptions: {
       globals: { ...globals.jest }
     }
