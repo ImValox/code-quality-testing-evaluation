@@ -107,6 +107,50 @@ Les rapports de couverture sont exportés en formats `text` (terminal), `lcov` e
 - Tester systématiquement les cas limites (champs vides, erreurs 400/401/404, gestion des exceptions).
 - Garantir l'idempotence des tests en réinitialisant les mocks (`clearMocks: true`) et les handlers MSW après chaque test (`server.resetHandlers()`).
 
+## Hooks Git (Husky, lint-staged & commitlint)
+
+Des hooks Git automatisés sont installés avec **Husky** afin d'assurer l'intégrité du code avant chaque commit et chaque push.
+
+### 1. Hook `pre-commit` (`npx lint-staged`)
+
+Déclenché automatiquement avant la création de tout commit :
+
+- Il analyse uniquement les fichiers indexés (`staged`).
+- Pour les fichiers JavaScript/JSX (`*.{js,jsx,ts,tsx}`) :
+  1. Lance `eslint --fix` pour corriger les erreurs de style ou de syntaxe.
+  2. Lance `prettier --write` pour aligner le formatage.
+  3. Exécute les tests Jest liés aux fichiers modifiés (`jest --bail --findRelatedTests --passWithNoTests`).
+- Pour les fichiers de configuration, documentation ou styles (`*.{json,md,css}`) : applique `prettier --write`.
+- **Blocage** : Si un linter échoue ou si un test lié au fichier est cassé, le commit est immédiatement refusé.
+
+### 2. Hook `commit-msg` (`commitlint`)
+
+Déclenché après la saisie du message de commit :
+
+- Vérifie la conformité avec la spécification **Conventional Commits** via `@commitlint/config-conventional`.
+- Format attendu : `<type>[scope optionnel]: <description>`.
+- Exemples valides : `feat(auth): add login form`, `chore: update dependencies`.
+- Exemple invalide : `update code` (rejeté avec explications détaillées).
+
+### 3. Hook `pre-push` (`npm run test:coverage`)
+
+Déclenché avant l'envoi de branches vers le dépôt distant (`git push`) :
+
+- Exécute l'intégralité de la suite de tests et calcule la couverture globale.
+- **Blocage** : Le push est annulé si un test échoue ou si l'un des seuils de couverture (80% statements, 60% branches, 70% functions, 80% lines) n'est pas atteint.
+
+### 4. Contournement d'urgence (`--no-verify`)
+
+En cas d'urgence opérationnelle absolue ou de commit partiel temporaire, il est techniquement possible de contourner les hooks :
+
+```bash
+git commit -m "chore: urgent fix" --no-verify
+git push origin ma-branche --no-verify
+```
+
+> [!WARNING]
+> L'utilisation de `--no-verify` doit rester exceptionnelle. La pipeline CI de GitHub Actions rejettera de toute façon toute Pull Request dont les tests, le lint ou la couverture échouent.
+
 ## Git Requirements (Mandatory)
 
 > [!IMPORTANT]
