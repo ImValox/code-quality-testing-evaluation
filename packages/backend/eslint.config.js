@@ -6,6 +6,9 @@ const prettier = require('eslint-config-prettier');
 const globals = require('globals');
 
 module.exports = [
+  {
+    ignores: ['coverage/**', 'node_modules/**']
+  },
   js.configs.recommended,
   nodePlugin.configs['flat/recommended-script'],
   unicorn.configs.recommended,
