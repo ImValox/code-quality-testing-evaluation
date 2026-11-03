@@ -1,21 +1,22 @@
-export const formatDate = (date) => {
+export const formatDate = (date: Date | number | string | null | undefined): string => {
   if (!date) return 'Invalid Date';
 
   try {
     const d = new Date(date);
+    if (Number.isNaN(d.getTime())) return 'Invalid Date';
     return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
-  } catch (e) {
-    console.error('Date formatting error:', e);
+  } catch (error) {
+    console.error('Date formatting error:', error);
     return 'Invalid Date';
   }
 };
 
-export const formatPrice = (price) => {
-  if (!price) return '$0.00';
+export const formatPrice = (price: number | string | null | undefined): string => {
+  if (price === null || price === undefined || price === '') return '$0.00';
 
   try {
-    const num = parseFloat(price);
-    if (isNaN(num)) return '$0.00';
+    const num = typeof price === 'number' ? price : Number.parseFloat(price);
+    if (Number.isNaN(num)) return '$0.00';
 
     const parts = num.toFixed(2).split('.');
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -26,10 +27,10 @@ export const formatPrice = (price) => {
   }
 };
 
-export const formatStock = (stock) => {
-  const stockNum = parseInt(stock);
+export const formatStock = (stock: number | string | null | undefined): string => {
+  const stockNum = typeof stock === 'number' ? Math.floor(stock) : Number.parseInt(String(stock), 10);
 
-  if (isNaN(stockNum)) {
+  if (Number.isNaN(stockNum)) {
     return 'Out of Stock';
   }
 
@@ -44,7 +45,7 @@ export const formatStock = (stock) => {
   }
 };
 
-export const formatUserName = (firstname, lastname) => {
+export const formatUserName = (firstname: string | null | undefined, lastname: string | null | undefined): string => {
   if (!firstname && !lastname) return 'Unknown User';
 
   const first = (firstname || '').trim();
@@ -61,7 +62,7 @@ export const formatUserName = (firstname, lastname) => {
   return 'Unknown User';
 };
 
-export const formatSearchTerm = (term) => {
+export const formatSearchTerm = (term: string | null | undefined): string => {
   if (!term) return '';
 
   return term

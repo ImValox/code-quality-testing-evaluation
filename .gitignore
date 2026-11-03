@@ -9,3 +9,4 @@ coverage/
 TASKS_ROADMAP.md
 node_modules.nosync
 *.nosync
+*.tsbuildinfo

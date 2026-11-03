@@ -4,15 +4,37 @@ const perfectionist = require('eslint-plugin-perfectionist');
 const unicorn = require('eslint-plugin-unicorn').default;
 const prettier = require('eslint-config-prettier');
 const globals = require('globals');
+const tseslint = require('typescript-eslint');
 
 module.exports = [
   {
-    ignores: ['coverage/**', 'node_modules/**']
+    ignores: ['coverage/**', 'dist/**', 'node_modules/**']
   },
   js.configs.recommended,
   nodePlugin.configs['flat/recommended-script'],
   unicorn.configs.recommended,
   perfectionist.configs['recommended-natural'],
+  ...tseslint.configs.recommendedTypeChecked.map((config) => ({
+    ...config,
+    files: ['**/*.ts', '**/src/**/*.ts']
+  })),
+  {
+    files: ['**/*.js'],
+    ...tseslint.configs.disableTypeChecked
+  },
+  {
+    files: ['**/*.ts', '**/src/**/*.ts'],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        project: ['./tsconfig.json'],
+        tsconfigRootDir: __dirname
+      }
+    },
+    plugins: {
+      '@typescript-eslint': tseslint.plugin
+    }
+  },
   {
     files: ['**/*.js'],
     languageOptions: {
@@ -20,20 +42,24 @@ module.exports = [
       sourceType: 'commonjs'
     },
     rules: {
-      'n/no-missing-import': 'error',
+      'n/no-missing-import': 'off',
       'n/no-unpublished-require': 'error',
-      // Express identifie un error handler par ses 4 paramètres
       'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-      // Le projet utilise des noms en camelCase (userController.js...)
       'unicorn/filename-case': 'off',
-      // "req", "res", "err" sont des noms courants avec Express
       'unicorn/name-replacements': 'off',
-      // sqlite3 renvoie null, on ne peut pas l'éviter
       'unicorn/no-null': 'off',
-      // sqlite3 expose lastID via this dans ses callbacks
       'unicorn/no-this-outside-of-class': 'off',
-      // Le backend est en CommonJS (require), pas en modules ES
       'unicorn/prefer-module': 'off'
+    }
+  },
+  {
+    files: ['**/*.ts', '**/src/**/*.ts'],
+    plugins: {
+      '@typescript-eslint': tseslint.plugin
+    },
+    rules: {
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'no-unused-vars': 'off'
     }
   },
   {
@@ -45,13 +71,20 @@ module.exports = [
     }
   },
   {
-    files: ['tests/**/*.js', '**/tests/**/*.js'],
+    files: ['tests/**/*.js', 'tests/**/*.ts', '**/tests/**/*.js', '**/tests/**/*.ts'],
     languageOptions: {
       globals: globals.jest
     }
   },
   {
-    files: ['eslint.config.js', '**/eslint.config.js', 'tests/**/*.js', '**/tests/**/*.js'],
+    files: [
+      'eslint.config.js',
+      '**/eslint.config.js',
+      'tests/**/*.js',
+      'tests/**/*.ts',
+      '**/tests/**/*.js',
+      '**/tests/**/*.ts'
+    ],
     rules: {
       'n/no-unpublished-require': 'off'
     }

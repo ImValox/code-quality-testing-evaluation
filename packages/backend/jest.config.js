@@ -1,6 +1,6 @@
 module.exports = {
   clearMocks: true,
-  collectCoverageFrom: ['src/**/*.js', '!src/server.js'],
+  collectCoverageFrom: ['src/**/*.{js,ts}', '!src/server.{js,ts}', '!src/**/*.d.ts'],
   coverageReporters: ['text', 'lcov', 'html'],
   coverageThreshold: {
     global: {
@@ -10,8 +10,12 @@ module.exports = {
       statements: 80
     }
   },
+  moduleFileExtensions: ['js', 'ts', 'json', 'node'],
   setupFiles: ['<rootDir>/tests/setup/env.js'],
   setupFilesAfterEnv: ['<rootDir>/tests/setup/database.js'],
   testEnvironment: 'node',
-  testMatch: ['<rootDir>/tests/**/*.test.js']
+  testMatch: ['<rootDir>/tests/**/*.test.{js,ts}'],
+  transform: {
+    '^.+\\.tsx?$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.json' }]
+  }
 };
