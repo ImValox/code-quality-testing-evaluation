@@ -1,0 +1,10 @@
+node_modules
+build
+dist
+coverage
+package-lock.json
+*.sqlite
+*.sqlite3
+*.db
+.git
+TASKS_ROADMAP.md
