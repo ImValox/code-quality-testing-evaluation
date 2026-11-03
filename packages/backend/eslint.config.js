@@ -2,6 +2,7 @@ const js = require('@eslint/js');
 const nodePlugin = require('eslint-plugin-n');
 const perfectionist = require('eslint-plugin-perfectionist');
 const unicorn = require('eslint-plugin-unicorn').default;
+const prettier = require('eslint-config-prettier');
 const globals = require('globals');
 
 module.exports = [
@@ -51,5 +52,6 @@ module.exports = [
     rules: {
       'n/no-unpublished-require': 'off'
     }
-  }
+  },
+  prettier
 ];

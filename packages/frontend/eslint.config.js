@@ -6,6 +6,7 @@ const react = require('eslint-plugin-react');
 const reactHooks = require('eslint-plugin-react-hooks');
 const globals = require('globals');
 const path = require('node:path');
+const prettier = require('eslint-config-prettier');
 
 module.exports = [
   {
@@ -66,5 +67,6 @@ module.exports = [
       globals: { ...globals.node },
       sourceType: 'commonjs'
     }
-  }
+  },
+  prettier
 ];
