@@ -4,9 +4,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --passWithNoTests --watchAll=false",
+    "test": "jest",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "axios": "^1.12.2",
@@ -32,8 +33,15 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.25.9",
     "@eslint/js": "^9.39.5",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
     "autoprefixer": "^10.6.2",
+    "babel-jest": "^30.5.2",
     "eslint": "^9.39.5",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-perfectionist": "^5.12.1",
@@ -41,6 +49,9 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-tailwindcss": "^3.18.3",
     "globals": "^14.0.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^30.5.2",
+    "jest-environment-jsdom": "^30.5.2",
     "postcss": "^8.5.32",
     "tailwindcss": "^3.4.19"
   }
