@@ -26,7 +26,7 @@ module.exports = [
   jsxA11y.flatConfigs.recommended,
   ...tailwind.configs['flat/recommended'],
   {
-    files: ['src/**/*.{js,jsx}'],
+    files: ['src/**/*.{js,jsx}', '**/src/**/*.{js,jsx}'],
     languageOptions: {
       ecmaVersion: 'latest',
       globals: {
@@ -56,13 +56,13 @@ module.exports = [
     }
   },
   {
-    files: ['src/**/*.test.{js,jsx}', 'src/setupTests.js'],
+    files: ['src/**/*.test.{js,jsx}', 'src/setupTests.js', '**/src/**/*.test.{js,jsx}', '**/setupTests.js'],
     languageOptions: {
       globals: { ...globals.jest }
     }
   },
   {
-    files: ['*.config.js', '__mocks__/**/*.js'],
+    files: ['*.config.js', '**/*.config.js', '__mocks__/**/*.js', '**/__mocks__/**/*.js'],
     languageOptions: {
       globals: { ...globals.node },
       sourceType: 'commonjs'

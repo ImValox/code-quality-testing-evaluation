@@ -37,7 +37,7 @@ module.exports = [
     }
   },
   {
-    files: ['src/server.js'],
+    files: ['src/server.js', '**/src/server.js'],
     rules: {
       'n/no-process-exit': 'off',
       'unicorn/no-process-exit': 'off',
@@ -45,13 +45,13 @@ module.exports = [
     }
   },
   {
-    files: ['tests/**/*.js'],
+    files: ['tests/**/*.js', '**/tests/**/*.js'],
     languageOptions: {
       globals: globals.jest
     }
   },
   {
-    files: ['eslint.config.js', 'tests/**/*.js'],
+    files: ['eslint.config.js', '**/eslint.config.js', 'tests/**/*.js', '**/tests/**/*.js'],
     rules: {
       'n/no-unpublished-require': 'off'
     }
