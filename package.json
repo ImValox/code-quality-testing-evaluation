@@ -16,6 +16,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lighthouse": "lhci autorun",
+    "lighthouse:local": "npm run build --workspace=frontend && lhci autorun --upload.target=filesystem --upload.outputDir=.lighthouseci/reports",
     "prepare": "husky",
     "typecheck": "tsc -b"
   },
