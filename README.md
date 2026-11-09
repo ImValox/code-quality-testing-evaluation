@@ -83,6 +83,7 @@ Le projet met en œuvre une politique de tests rigoureuse, combinant tests unita
   - Configuration globale de l'environnement de test dans `src/setupTests.js`.
 - **Backend (`packages/backend`)** :
   - Tests API et d'intégration regroupés dans `packages/backend/tests/` (ex : `tests/health.test.js`).
+  - Tests unitaires des controllers dans `packages/backend/tests/unit/controllers/` : la base de données, `bcryptjs` et `jsonwebtoken` sont mockés avec `jest.mock`, et les objets `req` / `res` sont simulés via `tests/helpers/http.js`.
   - Scripts d'initialisation et configuration de base de données de test dans `packages/backend/tests/setup/`.
 
 ### 3. Mocks & Isolation
