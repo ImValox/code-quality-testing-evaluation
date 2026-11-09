@@ -166,6 +166,7 @@ const UserList = () => {
         }}
       >
         <input
+          aria-label="Search users"
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search users..."
           style={{
@@ -179,6 +180,7 @@ const UserList = () => {
         />
 
         <select
+          aria-label="Filter by join date"
           onChange={(e) => setJoinedFilter(e.target.value)}
           style={{
             border: '1px solid #ddd',
@@ -194,6 +196,7 @@ const UserList = () => {
         </select>
 
         <select
+          aria-label="Sort users"
           onChange={(e) => setSortField(e.target.value)}
           style={{
             border: '1px solid #ddd',
@@ -226,7 +229,7 @@ const UserList = () => {
           style={{
             backgroundColor: '#ffebee',
             borderRadius: '4px',
-            color: 'red',
+            color: '#b71c1c',
             marginBottom: '20px',
             padding: '10px'
           }}

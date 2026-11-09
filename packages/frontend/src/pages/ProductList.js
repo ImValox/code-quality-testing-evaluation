@@ -114,19 +114,17 @@ const ProductList = () => {
         }}
       >
         <h2>Products</h2>
-        <Link to="/add-product">
-          <button
-            style={{
-              backgroundColor: '#4CAF50',
-              border: 'none',
-              borderRadius: '4px',
-              color: 'white',
-              cursor: 'pointer',
-              padding: '10px 20px'
-            }}
-          >
-            Add Product
-          </button>
+        <Link
+          style={{
+            backgroundColor: '#2e7d32',
+            borderRadius: '4px',
+            color: 'white',
+            padding: '10px 20px',
+            textDecoration: 'none'
+          }}
+          to="/add-product"
+        >
+          Add Product
         </Link>
       </div>
 
@@ -138,6 +136,7 @@ const ProductList = () => {
         }}
       >
         <input
+          aria-label="Search products"
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search products..."
           style={{
@@ -151,6 +150,7 @@ const ProductList = () => {
         />
 
         <select
+          aria-label="Filter by price"
           onChange={(e) => setPriceFilter(e.target.value)}
           style={{
             border: '1px solid #ddd',
@@ -166,6 +166,7 @@ const ProductList = () => {
         </select>
 
         <select
+          aria-label="Filter by stock"
           onChange={(e) => setStockFilter(e.target.value)}
           style={{
             border: '1px solid #ddd',
@@ -186,7 +187,7 @@ const ProductList = () => {
           style={{
             backgroundColor: '#ffebee',
             borderRadius: '4px',
-            color: 'red',
+            color: '#b71c1c',
             marginBottom: '20px',
             padding: '10px'
           }}
@@ -216,7 +217,7 @@ const ProductList = () => {
             <p style={{ color: '#666', margin: '5px 0' }}>Price: ${product.price}</p>
             <p
               style={{
-                color: product.stock > 0 ? '#4CAF50' : '#f44336',
+                color: product.stock > 0 ? '#2e7d32' : '#c62828',
                 margin: '5px 0'
               }}
             >

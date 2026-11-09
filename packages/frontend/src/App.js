@@ -39,38 +39,40 @@ function App() {
         }}
       >
         {isAuthenticated && <Navigation onLogout={refreshAuth} />}
-        <Routes>
-          <Route element={<Login onLogin={refreshAuth} />} path="/login" />
-          <Route element={<Register />} path="/register" />
-          <Route
-            element={
-              <ProtectedRoute>
-                <UserList />
-              </ProtectedRoute>
-            }
-            path="/users"
-          />
-          <Route
-            element={
-              <ProtectedRoute>
-                <ProductList />
-              </ProtectedRoute>
-            }
-            path="/products"
-          />
-          <Route
-            element={
-              <ProtectedRoute>
-                <AddProduct />
-              </ProtectedRoute>
-            }
-            path="/add-product"
-          />
-          <Route
-            element={isAuthenticated ? <Navigate replace to="/products" /> : <Navigate replace to="/login" />}
-            path="/"
-          />
-        </Routes>
+        <main>
+          <Routes>
+            <Route element={<Login onLogin={refreshAuth} />} path="/login" />
+            <Route element={<Register />} path="/register" />
+            <Route
+              element={
+                <ProtectedRoute>
+                  <UserList />
+                </ProtectedRoute>
+              }
+              path="/users"
+            />
+            <Route
+              element={
+                <ProtectedRoute>
+                  <ProductList />
+                </ProtectedRoute>
+              }
+              path="/products"
+            />
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AddProduct />
+                </ProtectedRoute>
+              }
+              path="/add-product"
+            />
+            <Route
+              element={isAuthenticated ? <Navigate replace to="/products" /> : <Navigate replace to="/login" />}
+              path="/"
+            />
+          </Routes>
+        </main>
       </div>
     </BrowserRouter>
   );

@@ -33,7 +33,7 @@ const Navigation = ({ onLogout }) => {
       </div>
       <div className="flex items-center">
         <span className="mr-5 text-white">{greeting}</span>
-        <button className="cursor-pointer rounded border-none bg-[#f44336] px-4 py-2 text-white" onClick={handleLogout}>
+        <button className="cursor-pointer rounded border-none bg-[#c62828] px-4 py-2 text-white" onClick={handleLogout}>
           Logout
         </button>
       </div>

@@ -8,3 +8,4 @@ package-lock.json
 *.db
 .git
 TASKS_ROADMAP.md
+.lighthouseci

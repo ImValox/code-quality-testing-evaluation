@@ -37,7 +37,7 @@ const Login = ({ onLogin }) => {
           style={{
             backgroundColor: '#ffebee',
             borderRadius: '4px',
-            color: 'red',
+            color: '#b71c1c',
             marginBottom: '10px',
             padding: '10px'
           }}
@@ -53,31 +53,37 @@ const Login = ({ onLogin }) => {
           gap: '15px'
         }}
       >
-        <input
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Username"
-          style={{
-            border: '1px solid #ddd',
-            borderRadius: '4px',
-            padding: '8px'
-          }}
-          type="text"
-          value={username}
-        />
-        <input
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          style={{
-            border: '1px solid #ddd',
-            borderRadius: '4px',
-            padding: '8px'
-          }}
-          type="password"
-          value={password}
-        />
+        <label style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+          Username
+          <input
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Username"
+            style={{
+              border: '1px solid #ddd',
+              borderRadius: '4px',
+              padding: '8px'
+            }}
+            type="text"
+            value={username}
+          />
+        </label>
+        <label style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+          Password
+          <input
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            style={{
+              border: '1px solid #ddd',
+              borderRadius: '4px',
+              padding: '8px'
+            }}
+            type="password"
+            value={password}
+          />
+        </label>
         <button
           style={{
-            backgroundColor: '#4CAF50',
+            backgroundColor: '#2e7d32',
             border: 'none',
             borderRadius: '4px',
             color: 'white',

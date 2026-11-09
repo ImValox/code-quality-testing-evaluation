@@ -48,7 +48,7 @@ const AddProduct = () => {
           style={{
             backgroundColor: '#ffebee',
             borderRadius: '4px',
-            color: 'red',
+            color: '#b71c1c',
             marginBottom: '10px',
             padding: '10px'
           }}
@@ -65,47 +65,56 @@ const AddProduct = () => {
           gap: '15px'
         }}
       >
-        <input
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Product Name"
-          style={{
-            border: '1px solid #ddd',
-            borderRadius: '4px',
-            padding: '8px'
-          }}
-          type="text"
-          value={name}
-        />
+        <label style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+          Product Name
+          <input
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Product Name"
+            style={{
+              border: '1px solid #ddd',
+              borderRadius: '4px',
+              padding: '8px'
+            }}
+            type="text"
+            value={name}
+          />
+        </label>
 
-        <input
-          onChange={(e) => setPrice(e.target.value)}
-          placeholder="Price"
-          style={{
-            border: '1px solid #ddd',
-            borderRadius: '4px',
-            padding: '8px'
-          }}
-          type="number"
-          value={price}
-        />
+        <label style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+          Price
+          <input
+            onChange={(e) => setPrice(e.target.value)}
+            placeholder="Price"
+            style={{
+              border: '1px solid #ddd',
+              borderRadius: '4px',
+              padding: '8px'
+            }}
+            type="number"
+            value={price}
+          />
+        </label>
 
-        <input
-          onChange={(e) => setStock(e.target.value)}
-          placeholder="Stock"
-          style={{
-            border: '1px solid #ddd',
-            borderRadius: '4px',
-            padding: '8px'
-          }}
-          type="number"
-          value={stock}
-        />
+        <label style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+          Stock
+          <input
+            onChange={(e) => setStock(e.target.value)}
+            placeholder="Stock"
+            style={{
+              border: '1px solid #ddd',
+              borderRadius: '4px',
+              padding: '8px'
+            }}
+            type="number"
+            value={stock}
+          />
+        </label>
 
         <div style={{ display: 'flex', gap: '10px' }}>
           <button
             onClick={() => navigate('/products')}
             style={{
-              backgroundColor: '#f44336',
+              backgroundColor: '#c62828',
               border: 'none',
               borderRadius: '4px',
               color: 'white',
@@ -120,7 +129,7 @@ const AddProduct = () => {
 
           <button
             style={{
-              backgroundColor: '#4CAF50',
+              backgroundColor: '#2e7d32',
               border: 'none',
               borderRadius: '4px',
               color: 'white',

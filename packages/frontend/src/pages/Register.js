@@ -44,7 +44,7 @@ const Register = () => {
           style={{
             backgroundColor: '#ffebee',
             borderRadius: '4px',
-            color: 'red',
+            color: '#b71c1c',
             marginBottom: '10px',
             padding: '10px'
           }}
@@ -60,57 +60,69 @@ const Register = () => {
           gap: '15px'
         }}
       >
-        <input
-          name="firstname"
-          onChange={handleChange}
-          placeholder="First Name"
-          style={{
-            border: '1px solid #ddd',
-            borderRadius: '4px',
-            padding: '8px'
-          }}
-          type="text"
-          value={formData.firstname}
-        />
-        <input
-          name="lastname"
-          onChange={handleChange}
-          placeholder="Last Name"
-          style={{
-            border: '1px solid #ddd',
-            borderRadius: '4px',
-            padding: '8px'
-          }}
-          type="text"
-          value={formData.lastname}
-        />
-        <input
-          name="username"
-          onChange={handleChange}
-          placeholder="Username"
-          style={{
-            border: '1px solid #ddd',
-            borderRadius: '4px',
-            padding: '8px'
-          }}
-          type="text"
-          value={formData.username}
-        />
-        <input
-          name="password"
-          onChange={handleChange}
-          placeholder="Password"
-          style={{
-            border: '1px solid #ddd',
-            borderRadius: '4px',
-            padding: '8px'
-          }}
-          type="password"
-          value={formData.password}
-        />
+        <label style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+          First Name
+          <input
+            name="firstname"
+            onChange={handleChange}
+            placeholder="First Name"
+            style={{
+              border: '1px solid #ddd',
+              borderRadius: '4px',
+              padding: '8px'
+            }}
+            type="text"
+            value={formData.firstname}
+          />
+        </label>
+        <label style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+          Last Name
+          <input
+            name="lastname"
+            onChange={handleChange}
+            placeholder="Last Name"
+            style={{
+              border: '1px solid #ddd',
+              borderRadius: '4px',
+              padding: '8px'
+            }}
+            type="text"
+            value={formData.lastname}
+          />
+        </label>
+        <label style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+          Username
+          <input
+            name="username"
+            onChange={handleChange}
+            placeholder="Username"
+            style={{
+              border: '1px solid #ddd',
+              borderRadius: '4px',
+              padding: '8px'
+            }}
+            type="text"
+            value={formData.username}
+          />
+        </label>
+        <label style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+          Password
+          <input
+            name="password"
+            onChange={handleChange}
+            placeholder="Password"
+            style={{
+              border: '1px solid #ddd',
+              borderRadius: '4px',
+              padding: '8px'
+            }}
+            type="password"
+            value={formData.password}
+          />
+        </label>
         <button
           style={{
-            backgroundColor: '#4CAF50',
+            backgroundColor: '#2e7d32',
             border: 'none',
             borderRadius: '4px',
             color: 'white',
