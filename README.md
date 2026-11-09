@@ -152,6 +152,29 @@ git push origin ma-branche --no-verify
 > [!WARNING]
 > L'utilisation de `--no-verify` doit rester exceptionnelle. La pipeline CI de GitHub Actions rejettera de toute façon toute Pull Request dont les tests, le lint ou la couverture échouent.
 
+## Performance (Lighthouse CI)
+
+Les performances, l'accessibilité, les bonnes pratiques et le SEO du frontend sont audités avec **Lighthouse CI** (`@lhci/cli`), configuré dans `lighthouserc.js`.
+
+### 1. Configuration (`lighthouserc.js`)
+
+- `collect` : sert le build statique (`packages/frontend/build`) et lance **3 audits** pour lisser les variations de score.
+- `assert` : seuils minimaux bloquants (performance ≥ 0.8, accessibilité = 1, bonnes pratiques ≥ 0.9, SEO ≥ 0.8).
+- `upload` : en CI, les rapports sont publiés sur `temporary-public-storage` (lien public temporaire affiché dans les logs).
+
+### 2. Commandes npm
+
+```bash
+# Build du frontend + audit, rapports écrits en local dans .lighthouseci/reports (rien n'est publié)
+npm run lighthouse:local
+
+# Audit tel qu'exécuté en CI (nécessite un build préalable, publie le rapport sur un stockage public temporaire)
+npm run build
+npm run lighthouse
+```
+
+Les rapports HTML générés (`.lighthouseci/reports/*.report.html`) s'ouvrent directement dans un navigateur. Le dossier `.lighthouseci/` est ignoré par Git et Prettier.
+
 ## Git Requirements (Mandatory)
 
 > [!IMPORTANT]
