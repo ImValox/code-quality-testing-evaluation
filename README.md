@@ -83,6 +83,7 @@ Le projet met en œuvre une politique de tests rigoureuse, combinant tests unita
   - Configuration globale de l'environnement de test dans `src/setupTests.js`.
 - **Backend (`packages/backend`)** :
   - Tests API et d'intégration regroupés dans `packages/backend/tests/` (ex : `tests/health.test.js`).
+  - Tests unitaires des controllers dans `packages/backend/tests/unit/controllers/` : la base de données, `bcryptjs` et `jsonwebtoken` sont mockés avec `jest.mock`, et les objets `req` / `res` sont simulés via `tests/helpers/http.js`.
   - Scripts d'initialisation et configuration de base de données de test dans `packages/backend/tests/setup/`.
 
 ### 3. Mocks & Isolation
@@ -117,7 +118,7 @@ Déclenché automatiquement avant la création de tout commit :
 
 - Il analyse uniquement les fichiers indexés (`staged`).
 - Pour les fichiers JavaScript/JSX (`*.{js,jsx,ts,tsx}`) :
-  1. Lance `eslint --fix` pour corriger les erreurs de style ou de syntaxe.
+  1. Lance `eslint --fix` avec la version d'ESLint propre à chaque package (`packages/<package>/node_modules/eslint`), et non celle remontée à la racine du monorepo.
   2. Lance `prettier --write` pour aligner le formatage.
   3. Exécute les tests Jest liés aux fichiers modifiés (`jest --bail --findRelatedTests --passWithNoTests`).
 - Pour les fichiers de configuration, documentation ou styles (`*.{json,md,css}`) : applique `prettier --write`.
