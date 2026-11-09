@@ -1,11 +1,11 @@
 {
   "packages/backend/**/*.{js,ts}": [
-    "eslint --config packages/backend/eslint.config.js --fix",
+    "node packages/backend/node_modules/eslint/bin/eslint.js --config packages/backend/eslint.config.js --fix",
     "prettier --write",
     "jest --bail --findRelatedTests --passWithNoTests"
   ],
   "packages/frontend/**/*.{js,jsx,ts,tsx}": [
-    "eslint --config packages/frontend/eslint.config.js --fix",
+    "node packages/frontend/node_modules/eslint/bin/eslint.js --config packages/frontend/eslint.config.js --fix",
     "prettier --write",
     "jest --bail --findRelatedTests --passWithNoTests"
   ],

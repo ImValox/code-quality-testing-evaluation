@@ -117,7 +117,7 @@ Déclenché automatiquement avant la création de tout commit :
 
 - Il analyse uniquement les fichiers indexés (`staged`).
 - Pour les fichiers JavaScript/JSX (`*.{js,jsx,ts,tsx}`) :
-  1. Lance `eslint --fix` pour corriger les erreurs de style ou de syntaxe.
+  1. Lance `eslint --fix` avec la version d'ESLint propre à chaque package (`packages/<package>/node_modules/eslint`), et non celle remontée à la racine du monorepo.
   2. Lance `prettier --write` pour aligner le formatage.
   3. Exécute les tests Jest liés aux fichiers modifiés (`jest --bail --findRelatedTests --passWithNoTests`).
 - Pour les fichiers de configuration, documentation ou styles (`*.{json,md,css}`) : applique `prettier --write`.
