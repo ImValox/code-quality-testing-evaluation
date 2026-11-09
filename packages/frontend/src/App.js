@@ -38,17 +38,19 @@ function App() {
         }}
       >
         {isAuthenticated && <Navigation onLogout={refreshAuth} />}
-        <Routes>
-          <Route element={<Login onLogin={refreshAuth} />} path="/login" />
-          <Route element={<Register />} path="/register" />
-          <Route element={<UserList />} path="/users" />
-          <Route element={<ProductList />} path="/products" />
-          <Route element={<AddProduct />} path="/add-product" />
-          <Route
-            element={isAuthenticated ? <Navigate replace to="/products" /> : <Navigate replace to="/login" />}
-            path="/"
-          />
-        </Routes>
+        <main>
+          <Routes>
+            <Route element={<Login onLogin={refreshAuth} />} path="/login" />
+            <Route element={<Register />} path="/register" />
+            <Route element={<UserList />} path="/users" />
+            <Route element={<ProductList />} path="/products" />
+            <Route element={<AddProduct />} path="/add-product" />
+            <Route
+              element={isAuthenticated ? <Navigate replace to="/products" /> : <Navigate replace to="/login" />}
+              path="/"
+            />
+          </Routes>
+        </main>
       </div>
     </BrowserRouter>
   );
