@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import Navigation from './components/Navigation';
+import ProtectedRoute from './components/ProtectedRoute';
 import AddProduct from './pages/AddProduct';
 import Login from './pages/Login';
 import ProductList from './pages/ProductList';
@@ -41,9 +42,30 @@ function App() {
         <Routes>
           <Route element={<Login onLogin={refreshAuth} />} path="/login" />
           <Route element={<Register />} path="/register" />
-          <Route element={<UserList />} path="/users" />
-          <Route element={<ProductList />} path="/products" />
-          <Route element={<AddProduct />} path="/add-product" />
+          <Route
+            element={
+              <ProtectedRoute>
+                <UserList />
+              </ProtectedRoute>
+            }
+            path="/users"
+          />
+          <Route
+            element={
+              <ProtectedRoute>
+                <ProductList />
+              </ProtectedRoute>
+            }
+            path="/products"
+          />
+          <Route
+            element={
+              <ProtectedRoute>
+                <AddProduct />
+              </ProtectedRoute>
+            }
+            path="/add-product"
+          />
           <Route
             element={isAuthenticated ? <Navigate replace to="/products" /> : <Navigate replace to="/login" />}
             path="/"
