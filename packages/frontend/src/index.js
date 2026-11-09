@@ -62,23 +62,6 @@ if (module.hot) {
   });
 }
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker
-      .register('/service-worker.js')
-      .then((registration) => {
-        console.log('SW registered:', registration);
-      })
-      .catch((error) => {
-        console.error('SW registration failed:', error);
-      });
-  });
-}
-
-window.addEventListener('unload', () => {
-  console.log('App cleanup');
-});
-
 window.addEventListener('error', (event) => {
   console.error('Runtime error:', event.error);
 });
